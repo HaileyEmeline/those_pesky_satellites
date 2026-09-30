@@ -1,4 +1,4 @@
-import collect_satellites
+import _data_collection.collect_satellites as collect_satellites
 import csv
 import json
 from datetime import datetime, timedelta
@@ -9,9 +9,11 @@ TWO_HOURS = timedelta(hours=2.1) #Run over for safety
 
 def can_update():
     if not LAST_UPDATE.exists():
+        print("No existing update; new update pending...")
         return True
     
     last_update = datetime.fromisoformat(LAST_UPDATE.read_text().strip())
+    print(f"Last update was: {last_update}")
     
     return datetime.now() - last_update >= TWO_HOURS
 
