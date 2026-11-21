@@ -7,6 +7,7 @@ from pathlib import Path
 LAST_UPDATE = Path("_data/last_update.txt")
 TWO_HOURS = timedelta(hours=2.1) #Run over for safety
 
+#Checks time from last update
 def can_update():
     if not LAST_UPDATE.exists():
         print("No existing update; new update pending...")
@@ -17,11 +18,13 @@ def can_update():
     
     return datetime.now() - last_update >= TWO_HOURS
 
+#Record the last update time
 def record_update():
     LAST_UPDATE.write_text(
         datetime.now().isoformat()
     )
 
+#Save the satellite data into a readable JSON format
 def format_data():
     
     if (can_update):
